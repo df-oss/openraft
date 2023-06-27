@@ -5,6 +5,11 @@ use crate::SnapshotId;
 /// A small piece of information for identifying a snapshot and error tracing.
 #[derive(Debug, Clone, PartialEq, Eq)]
 #[cfg_attr(feature = "serde", derive(serde::Deserialize, serde::Serialize), serde(bound = ""))]
+#[cfg_attr(
+    feature = "rkyv",
+    derive(rkyv::Archive, rkyv::Deserialize, rkyv::Serialize),
+    archive(check_bytes)
+)]
 pub struct SnapshotSignature<NID: NodeId> {
     /// Log entries upto which this snapshot includes, inclusive.
     pub last_log_id: Option<LogId<NID>>,

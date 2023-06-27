@@ -68,6 +68,11 @@ impl<T> Node for T where T: NodeEssential {}
 /// Such a node store nothing but is just a place holder.
 #[derive(Debug, Clone, Default, PartialEq, Eq)]
 #[cfg_attr(feature = "serde", derive(serde::Deserialize, serde::Serialize))]
+#[cfg_attr(
+    feature = "rkyv",
+    derive(rkyv::Archive, rkyv::Deserialize, rkyv::Serialize),
+    archive(check_bytes)
+)]
 pub struct EmptyNode {}
 
 impl EmptyNode {

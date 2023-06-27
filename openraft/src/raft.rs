@@ -130,6 +130,7 @@ macro_rules! declare_raft_types {
         $(#[$outer])*
         #[derive(Debug, Clone, Copy, Default, Eq, PartialEq, Ord, PartialOrd)]
         #[cfg_attr(feature = "serde", derive(serde::Deserialize, serde::Serialize))]
+        #[cfg_attr(feature = "rkyv", derive(rkyv::Archive, rkyv::Deserialize, rkyv::Serialize), archive(check_bytes))]
         $visibility struct $id {}
 
         impl $crate::RaftTypeConfig for $id {

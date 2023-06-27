@@ -19,6 +19,11 @@ pub trait Upgrade<To> {
 #[derive(Debug)]
 #[derive(serde::Deserialize, serde::Serialize)]
 #[serde(untagged)]
+#[cfg_attr(
+    feature = "rkyv",
+    derive(rkyv::Archive, rkyv::Deserialize, rkyv::Serialize),
+    archive(check_bytes)
+)]
 pub enum Compat<From, To>
 where From: Upgrade<To>
 {
